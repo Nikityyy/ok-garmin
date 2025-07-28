@@ -17,141 +17,31 @@
             --accent-color: #e60000;
             --muted-color: #888888;
         }
-
-        body {
-            margin: 0;
-            padding: 2rem;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            background-color: var(--background-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: calc(100vh - 4rem);
-            font-size: 16px;
-        }
-
-        #app-container {
-            max-width: 700px;
-            width: 100%;
-            height: calc(100vh - 4rem);
-            display: grid;
-            grid-template-rows: auto auto 1fr;
-            gap: 1rem;
-        }
-
-        header {
-            border-bottom: 1px solid var(--muted-color);
-            padding-bottom: 1rem;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin: 0;
-            letter-spacing: -1px;
-        }
-        
-        main {
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        #visualizer-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 80px;
-            margin-bottom: 1rem;
-            flex-shrink: 0;
-        }
-
-        #visualizer {
-            width: 50px;
-            height: 50px;
-            background-color: var(--muted-color);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        #visualizer.active {
-            background-color: var(--accent-color);
-            animation: pulse 1.5s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.9); opacity: 0.7; }
-            50% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(0.9); opacity: 0.7; }
-        }
-
-        .status-text {
-            text-align: center;
-            font-size: 1.2rem;
-            color: var(--muted-color);
-            height: 2em;
-            flex-shrink: 0;
-        }
-        
-        #conversation-log {
-            font-size: 1.5rem;
-            line-height: 1.6;
-            overflow-y: auto;
-            padding-right: 1rem;
-            word-wrap: break-word;
-        }
-
-        #conversation-log .user {
-            color: var(--muted-color);
-        }
-        
-        #conversation-log .assistant {
-            font-weight: 500;
-            color: var(--text-color);
-            margin-bottom: 1.5em;
-        }
-
-        #permission-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            color: white;
-            text-align: center;
-        }
-
-        #permission-modal button {
-            font-size: 1.5rem;
-            padding: 1rem 2rem;
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
+        body { margin: 0; padding: 2rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; background-color: var(--background-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: calc(100vh - 4rem); font-size: 16px; }
+        #app-container { max-width: 700px; width: 100%; height: calc(100vh - 4rem); display: grid; grid-template-rows: auto auto 1fr; gap: 1rem; }
+        header { border-bottom: 1px solid var(--muted-color); padding-bottom: 1rem; }
+        header h1 { font-size: 2.5rem; font-weight: 600; margin: 0; letter-spacing: -1px; }
+        main { display: flex; flex-direction: column; overflow: hidden; }
+        #visualizer-container { display: flex; justify-content: center; align-items: center; height: 80px; margin-bottom: 1rem; flex-shrink: 0; }
+        #visualizer { width: 50px; height: 50px; background-color: var(--muted-color); border-radius: 50%; transition: all 0.3s ease; }
+        #visualizer.active { background-color: var(--accent-color); animation: pulse 1.5s infinite ease-in-out; }
+        @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.7; } 50% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.7; } }
+        .status-text { text-align: center; font-size: 1.2rem; color: var(--muted-color); height: 2em; flex-shrink: 0; }
+        #conversation-log { font-size: 1.5rem; line-height: 1.6; overflow-y: auto; padding-right: 1rem; word-wrap: break-word; }
+        #conversation-log .user { color: var(--muted-color); }
+        #conversation-log .assistant { font-weight: 500; color: var(--text-color); margin-bottom: 1.5em; }
+        #permission-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; color: white; text-align: center; }
+        #permission-modal button { font-size: 1.5rem; padding: 1rem 2rem; background-color: var(--accent-color); color: white; border: none; cursor: pointer; border-radius: 5px; }
     </style>
 </head>
 <body>
 
     <div id="app-container">
-        <header>
-            <h1>Garmin</h1>
-        </header>
+        <header><h1>Garmin</h1></header>
         <main>
-            <div id="visualizer-container">
-                <div id="visualizer"></div>
-            </div>
-            <p id="status" class="status-text">Verbindung wird hergestellt...</p>
-            <div id="conversation-log">
-            </div>
+            <div id="visualizer-container"><div id="visualizer"></div></div>
+            <p id="status" class="status-text">Klicken um zu starten</p>
+            <div id="conversation-log"></div>
         </main>
     </div>
 
@@ -171,32 +61,30 @@
         const visualizerEl = document.getElementById('visualizer');
         const conversationLogEl = document.getElementById('conversation-log');
 
-        const WEBSOCKET_URL = `wss://${window.location.host}/ws`; 
-        let ws;
-        let audioContext;
-        let scriptNode;
-        let mediaStream;
+        let audioContext, mediaStream, mediaRecorder, analyser, dataArray;
+        let isRecording = false;
+        let silenceTimeout;
+        const SILENCE_THRESHOLD = -25;
+        const SILENCE_DELAY = 1000;
+        const BARGE_IN_BOOST_DB = 10;
+        let recordedChunks = [];
+        
+        let abortController = null;
+        let isAssistantSpeaking = false;
 
-        // --- Audio Playback State ---
         let audioQueue = [];
         let isPlayingAudio = false;
-        let nextChunkStartTime = 0;
+        let audioPlaybackContext;
         let currentAudioSource = null;
-        let ttsStreamHasEnded = false;
-
 
         startButton.addEventListener('click', () => {
             permissionModal.style.display = 'none';
-            init();
+            initAudio();
         });
 
         function updateStatus(text, isActive = false) {
             statusEl.textContent = text;
-            if (isActive) {
-                visualizerEl.classList.add('active');
-            } else {
-                visualizerEl.classList.remove('active');
-            }
+            visualizerEl.classList.toggle('active', isActive);
         }
         
         function showUserTranscript(text) {
@@ -208,7 +96,6 @@
             const assistantP = document.createElement('p');
             assistantP.className = 'assistant';
             conversationLogEl.appendChild(assistantP);
-            
             conversationLogEl.scrollTop = conversationLogEl.scrollHeight;
         }
 
@@ -220,95 +107,90 @@
             }
         }
 
-        function resetAudioState() {
-            audioQueue = [];
-            isPlayingAudio = false;
-            nextChunkStartTime = 0;
+        function interrupt() {
+            console.log("Interrupting current stream...");
             if (currentAudioSource) {
                 try { currentAudioSource.stop(); } catch(e) {}
             }
+            audioQueue = [];
+            isPlayingAudio = false;
             currentAudioSource = null;
-            ttsStreamHasEnded = false;
+
+            if (abortController) {
+                abortController.abort();
+                abortController = null;
+            }
+            isAssistantSpeaking = false;
+            updateStatus("Ich höre zu...", false);
         }
 
-        function onAllAudioFinished() {
-            console.log("All audio playback finished.");
-            resetAudioState();
-            if (ws && ws.readyState === WebSocket.OPEN) {
-                ws.send(JSON.stringify({ type: 'audio_finished' }));
-            }
-        }
-
-        async function playAudioQueue() {
-            if (audioQueue.length === 0) {
-                if (ttsStreamHasEnded) {
-                    onAllAudioFinished();
-                }
-                return;
-            }
+        async function playAudioFromQueue() {
+            if (isPlayingAudio || audioQueue.length === 0) return;
             
             isPlayingAudio = true;
             
-            if (audioContext.state === 'suspended') await audioContext.resume();
+            if (audioPlaybackContext.state === 'suspended') {
+                await audioPlaybackContext.resume();
+            }
 
-            const chunkBuffer = audioQueue.shift();
-            
+            const audioData = audioQueue.shift();
             try {
-                const decodedBuffer = await audioContext.decodeAudioData(chunkBuffer);
-                const source = audioContext.createBufferSource();
+                const decodedBuffer = await audioPlaybackContext.decodeAudioData(audioData);
+                const source = audioPlaybackContext.createBufferSource();
                 source.buffer = decodedBuffer;
-                source.connect(audioContext.destination);
+                source.connect(audioPlaybackContext.destination);
                 currentAudioSource = source;
-
-                const currentTime = audioContext.currentTime;
-                const startTime = Math.max(currentTime, nextChunkStartTime);
                 
-                source.start(startTime);
-                nextChunkStartTime = startTime + decodedBuffer.duration;
-
+                source.start();
                 source.onended = () => {
                     isPlayingAudio = false;
                     currentAudioSource = null;
-                    playAudioQueue();
+                    playAudioFromQueue();
                 };
             } catch (e) {
-                console.error("Error decoding audio chunk:", e);
+                console.error("Error decoding audio data:", e);
                 isPlayingAudio = false;
-                playAudioQueue();
+                playAudioFromQueue();
             }
         }
 
-        async function init() {
+        function base64ToArrayBuffer(base64) {
+            const binaryString = window.atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+        
+        async function initAudio() {
             try {
                 updateStatus('Mikrofon wird initialisiert...');
-                audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
-                
-                if (!audioContext.createScriptProcessor) {
-                   audioContext.createScriptProcessor = audioContext.createJavaScriptNode;
-                }
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                audioPlaybackContext = new (window.AudioContext || window.webkitAudioContext)();
 
-                mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+                mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 const source = audioContext.createMediaStreamSource(mediaStream);
                 
-                const bufferSize = 4096;
-                scriptNode = audioContext.createScriptProcessor(bufferSize, 1, 1);
+                analyser = audioContext.createAnalyser();
+                analyser.fftSize = 2048;
+                analyser.minDecibels = -90;
+                analyser.maxDecibels = -10;
+                analyser.smoothingTimeConstant = 0.85;
+                source.connect(analyser);
+                dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-                scriptNode.onaudioprocess = (audioProcessingEvent) => {
-                    if (ws && ws.readyState === WebSocket.OPEN) {
-                        const pcmData = audioProcessingEvent.inputBuffer.getChannelData(0);
-                        const int16Data = new Int16Array(pcmData.length);
-                        for (let i = 0; i < pcmData.length; i++) {
-                            int16Data[i] = Math.max(-1, Math.min(1, pcmData[i])) * 32767;
-                        }
-                        ws.send(int16Data.buffer);
+                mediaRecorder = new MediaRecorder(mediaStream);
+                mediaRecorder.ondataavailable = event => {
+                    if (event.data.size > 0) {
+                        recordedChunks.push(event.data);
                     }
                 };
+                mediaRecorder.onstop = sendAudioToServer;
                 
-                source.connect(scriptNode);
-                scriptNode.connect(audioContext.destination);
-
-                connectWebSocket();
-
+                updateStatus('Ich höre zu...', false);
+                detectSpeech();
             } catch (err) {
                 console.error('Error initializing audio:', err);
                 updateStatus('Fehler: Mikrofonzugriff verweigert.');
@@ -316,75 +198,138 @@
             }
         }
 
-        function connectWebSocket() {
-            ws = new WebSocket(WEBSOCKET_URL);
-            ws.binaryType = 'arraybuffer';
+        function detectSpeech() {
+            analyser.getByteFrequencyData(dataArray);
+            let sum = dataArray.reduce((a, b) => a + b, 0);
+            let average = sum / dataArray.length;
+            
+            let volume = 20 * Math.log10(average / 255);
 
-            ws.onopen = () => {
-                console.log('WebSocket connected.');
-                updateStatus('Ich höre zu...');
-            };
+            const currentThreshold = isAssistantSpeaking ? (SILENCE_THRESHOLD + BARGE_IN_BOOST_DB) : SILENCE_THRESHOLD;
 
-            ws.onmessage = (event) => {
-                if (event.data instanceof ArrayBuffer) {
-                    audioQueue.push(event.data);
-                    if (!isPlayingAudio) {
-                        playAudioQueue();
-                    }
-                    return;
+            if (volume > currentThreshold) {
+                if (!isRecording) {
+                    startRecording();
                 }
-                
-                const data = JSON.parse(event.data);
-                console.log('Received message:', data);
-
-                switch (data.type) {
-                    case 'status':
-                        updateStatus(data.message, data.isActive);
-                        break;
-                    case 'user_transcript':
-                        resetAudioState();
-                        showUserTranscript(data.data);
-                        break;
-                    case 'llm_chunk':
-                        appendToAssistantResponse(data.data);
-                        break;
-                    case 'llm_end':
-                        break;
-                    case 'tts_stream_end':
-                        ttsStreamHasEnded = true;
-                        if (!isPlayingAudio && audioQueue.length === 0) {
-                            onAllAudioFinished();
-                        }
-                        break;
-                    case 'stop_audio':
-                        console.log('Interruption: Stopping audio playback.');
-                        resetAudioState();
-                        break;
-                }
-            };
-
-            ws.onclose = () => {
-                console.log('WebSocket disconnected.');
-                updateStatus('Verbindung verloren. Erneut verbinden...', false);
-                setTimeout(connectWebSocket, 3000); 
-            };
-
-            ws.onerror = (error) => {
-                console.error('WebSocket error:', error);
-                updateStatus('Verbindungsfehler.', false);
-            };
+                clearTimeout(silenceTimeout);
+                silenceTimeout = setTimeout(stopRecording, SILENCE_DELAY);
+            }
+            
+            requestAnimationFrame(detectSpeech);
         }
 
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/static/sw.js')
-                    .then(registration => {
-                        console.log('Service Worker registered with scope:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.error('Service Worker registration failed:', error);
-                    });
-            });
+        function startRecording() {
+            if (isRecording) return;
+            
+            if (isAssistantSpeaking) {
+                interrupt(); 
+            }
+            
+            isRecording = true;
+            recordedChunks = [];
+            mediaRecorder.start();
+            updateStatus("Sprache erkannt...", true);
+        }
+
+        function stopRecording() {
+            if (!isRecording) return;
+            isRecording = false;
+            mediaRecorder.stop();
+            updateStatus("Verarbeite...", true);
+        }
+
+        async function sendAudioToServer() {
+            const audioBlob = new Blob(recordedChunks, { type: 'audio/webm' });
+            if (audioBlob.size < 1000) { 
+                console.log("Recording too short, ignoring.");
+                updateStatus("Ich höre zu...", false);
+                return;
+            }
+
+            abortController = new AbortController();
+            const { signal } = abortController;
+
+            try {
+                isAssistantSpeaking = true;
+                const response = await fetch('/assistant', {
+                    method: 'POST',
+                    body: audioBlob,
+                    headers: { 'Content-Type': 'application/octet-stream' },
+                    signal: signal
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+                }
+
+                if (!response.body) {
+                    throw new Error("Response body is empty.");
+                }
+
+                const reader = response.body.getReader();
+                const textDecoder = new TextDecoder();
+                let buffer = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) {
+                        console.log("Stream complete.");
+                        break;
+                    }
+                    
+                    buffer += textDecoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop();
+
+                    for (const line of lines) {
+                        if (line.trim() === '') continue;
+                        try {
+                            const data = JSON.parse(line);
+                            switch (data.type) {
+                                case 'status':
+                                    updateStatus(data.data.message, data.data.isActive);
+                                    break;
+                                case 'user_transcript':
+                                    showUserTranscript(data.data);
+                                    break;
+                                case 'llm_chunk':
+                                    appendToAssistantResponse(data.data);
+                                    break;
+                                case 'tts_chunk':
+                                    const audioChunk = base64ToArrayBuffer(data.data);
+                                    audioQueue.push(audioChunk);
+                                    if (!isPlayingAudio) playAudioFromQueue();
+                                    break;
+                                case 'llm_end':
+                                case 'tts_end':
+                                case 'end_stream':
+                                    break;
+                                case 'error':
+                                    console.error('Server Error:', data.data);
+                                    updateStatus("Ein Fehler ist aufgetreten.", false);
+                                    break;
+                                default:
+                                    console.warn('Unknown message type:', data.type, data.data);
+                            }
+                        } catch (parseError) {
+                            console.error('Failed to parse JSON line:', parseError, 'Line:', line);
+                        }
+                    }
+                }
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    console.log('Fetch request aborted by user.');
+                } else {
+                    console.error('Fetch streaming error:', error);
+                    updateStatus("Verbindungsfehler.", false);
+                }
+            } finally {
+                abortController = null;
+                if (isAssistantSpeaking) {
+                   isAssistantSpeaking = false;
+                }
+            }
         }
     });
     </script>

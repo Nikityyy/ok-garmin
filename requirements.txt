@@ -1,7 +1,6 @@
-fastapi
-uvicorn[standard]
-websockets
+Flask
 groq
-torch
-numpy
 elevenlabs
+numpy
+torch
+torchaudio
