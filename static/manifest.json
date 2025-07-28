@@ -1,0 +1,9 @@
+{
+  "name": "Garmin Assistant",
+  "short_name": "Garmin",
+  "description": "Dein persönlicher Garmin Sprachassistent.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f4f4",
+  "theme_color": "#e60000"
+}
