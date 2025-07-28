@@ -6,42 +6,36 @@ import logging
 
 from flask import Flask, Response, request, send_from_directory, stream_with_context
 
-import torch
 from groq import Groq
 from elevenlabs.client import ElevenLabs
 
 app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 
-RATE = 16000
 ELEVENLABS_VOICE_ID = "N2lVS1w4EtoT3dr4eOWO"
 ELEVENLABS_MODEL_ID = "eleven_flash_v2_5" 
 
-vad_model = None
-utils = None
 groq_client = None
 eleven_client = None
 
-def load_models():
-    global vad_model, utils, groq_client, eleven_client
-    if all([vad_model, utils, groq_client, eleven_client]):
-        logging.info("Models already loaded.")
+def load_clients():
+    """Loads the necessary API clients."""
+    global groq_client, eleven_client
+    if all([groq_client, eleven_client]):
+        logging.info("API clients already loaded.")
         return
 
     try:
-        logging.info("Loading models...")
-        vad_model, utils = torch.hub.load(
-            repo_or_dir='snakers4/silero-vad', model='silero_vad', force_reload=False, trust_repo=True
-        )
+        logging.info("Loading API clients...")
         groq_client = Groq()
         eleven_client = ElevenLabs()
-        logging.info("Models loaded successfully.")
+        logging.info("API clients loaded successfully.")
     except Exception as e:
-        logging.error(f"Failed to load models: {e}", exc_info=True)
-        vad_model = groq_client = eleven_client = None
+        logging.error(f"Failed to load API clients: {e}", exc_info=True)
+        groq_client = eleven_client = None
 
 with app.app_context():
-    load_models()
+    load_clients()
 
 @app.route('/')
 def serve_index():
@@ -51,9 +45,9 @@ def serve_index():
 @app.route('/assistant', methods=['POST'])
 def assistant_handler():
     """Handles audio input, streams LLM text, then sends complete TTS audio."""
-    if not all([vad_model, utils, groq_client, eleven_client]):
-        logging.error("Attempted to process request before models were loaded.")
-        return "Models not loaded, server is initializing. Please try again in a moment.", 503
+    if not all([groq_client, eleven_client]):
+        logging.error("Attempted to process request before API clients were loaded.")
+        return "Clients not loaded, server is initializing. Please try again in a moment.", 503
 
     history = [{
         "role": "system",
@@ -80,31 +74,7 @@ Garmin: Ich bin so alt wie das Internet-Meme, das mich berühmt gemacht hat. Abe
     def generate_stream():
         try:
             audio_data = request.data
-            try:
-                import torchaudio
-                from torchaudio.transforms import Resample
-                
-                audio_file_for_vad = io.BytesIO(audio_data)
-                waveform, sample_rate = torchaudio.load(audio_file_for_vad, format="webm")
-
-                if sample_rate != RATE:
-                    resampler = Resample(orig_freq=sample_rate, new_freq=RATE)
-                    waveform = resampler(waveform)
-
-                if waveform.shape[0] > 1: # Convert stereo to mono
-                    waveform = torch.mean(waveform, dim=0, keepdim=True)
-                
-                get_speech_timestamps = utils[0]
-                speech_timestamps = get_speech_timestamps(waveform, vad_model, sampling_rate=RATE)
-                
-                if not speech_timestamps:
-                    logging.info("VAD: No speech detected.")
-                    yield json.dumps({"type": "status", "data": {"message": "Nichts gehört. Ich höre zu...", "isActive": False}}) + "\n"
-                    yield json.dumps({"type": "end_stream"}) + "\n"
-                    return
-            except Exception as e:
-                logging.warning(f"Could not perform VAD pre-check: {e}. Proceeding with transcription anyway.", exc_info=True)
-            
+                        
             yield json.dumps({"type": "status", "data": {"message": "Transkription...", "isActive": True}}) + "\n"
             
             audio_file = io.BytesIO(audio_data)
@@ -173,5 +143,5 @@ Garmin: Ich bin so alt wie das Internet-Meme, das mich berühmt gemacht hat. Abe
 
 if __name__ == '__main__':
     with app.app_context():
-        load_models()
+        load_clients()
     app.run(debug=True, port=8000)
