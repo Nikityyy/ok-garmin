@@ -171,8 +171,7 @@
         const visualizerEl = document.getElementById('visualizer');
         const conversationLogEl = document.getElementById('conversation-log');
 
-        // This URL will dynamically take the PC's IP address if accessed via IP
-        const WEBSOCKET_URL = `ws://${window.location.host}/ws`; 
+        const WEBSOCKET_URL = `wss://${window.location.host}/ws`; 
         let ws;
         let audioContext;
         let scriptNode;
